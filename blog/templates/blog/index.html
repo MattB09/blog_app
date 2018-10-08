@@ -1,0 +1,36 @@
+{% extends "blog/base.html" %}
+
+{% block header %}
+  <div class='jumbotron'>
+	<h1>Share what's on your mind!</h1>
+  </div>
+{% endblock header %}
+
+{% block content %}
+  <h2>Blog! is a platform for people to share ideas, experiences, and anything else on their mind. <a href="{% url 'users:register' %}">Register an account</a> to start writing posts.</h2>
+  
+  <h2>
+    <a href="{% url 'blog:new_post' %}">Add a new blog post.</a>
+  </h2>
+  
+  <h2>Posts:</h2>
+  
+  {% for post in posts %}
+    <div class="panel panel-default">
+	  <div class="panel-heading">
+		<h3>
+		  {{ post }} 
+		  <small>
+			Author: {{ post.author }} - Posted on: {{ post.posted_on|date:'M d, Y' }} <a href="{% url 'blog:edit_post' post.id %}">edit post</a>
+		  </small>
+		</h3>
+	  </div>
+	  <div class="panel-body">
+	    {{ post.content|linebreaks }}
+	  </div>
+    </div> <!-- panel -->
+  {% empty %}
+	There are no entries for this topic yet.
+  {% endfor %}
+ 
+{% endblock content %}

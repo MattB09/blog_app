@@ -1,0 +1,10 @@
+This app is a blog. People will be able to add and edit blog posts. The posts will be displayed on the home page in chronological order. Posts will have a title, text, and date.
+
+super_user: mattb
+password: blogpwdFORGET
+
+user: vinnychase
+pwd: Aquaman123
+
+user: JohnnyDrama
+pwd: AnyJuicyParts?
