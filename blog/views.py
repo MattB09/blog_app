@@ -9,9 +9,13 @@ from .forms import PostForm
 # Create your views here.
 def index(request):
 	"""The home page for blog. All blog posts will be shown on this page in reverse chronological order."""
-	posts = Post.objects.order_by('-posted_on')
+	if request.user.is_authenticated:
+		posts = Post.objects.order_by('-posted_on')
+	else:
+		posts = Post.objects.filter(private=False).order_by('-posted_on')
 	context = {'posts': posts}
 	return render(request, 'blog/index.html', context)
+	
 
 @login_required	
 def new_post(request):
