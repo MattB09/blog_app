@@ -7,3 +7,7 @@ body {
   background-color: #222;
   color: #EEE8E5;
 }
+
+.panel-heading, panel-body {
+  border-color: #222;
+}
