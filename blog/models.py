@@ -9,6 +9,7 @@ class Post(models.Model):
 	content = models.TextField()
 	posted_on = models.DateTimeField(auto_now_add=True)
 	author = models.ForeignKey(User, on_delete=models.CASCADE)
+	private = models.BooleanField(default=False)
 	
 	def __str__(self):	
 		"""Return a string representation of the model"""
