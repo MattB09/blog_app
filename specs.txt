@@ -1,4 +1,9 @@
-This app is a blog. People will be able to add and edit blog posts. The posts will be displayed on the home page in chronological order. Posts will have a title, text, and date.
+This app is a blog. People will be able to add and edit blog posts. The posts will be displayed on the home page in chronological order. Posts will have a title, text, date, and public/private option. Private posts will only be able to viewed by logged in users. 
+
+Logged in users will be able to write comments on posts.
+
+
+
 
 super_user: mattb
 password: blogpwdFORGET
