@@ -33,15 +33,16 @@
 	    {{ post.content|linebreaks }}
 	  </div>
 	  <!-- comments -->
+	  <div class="panel-footer">
 	  {% if post.comments.count > 0 %}
-		<div class="panel-footer">
 		<h4>Comments</h4>
 	    {% for comment in post.comments.all %}
 			  <p><strong>{{ comment.author }}:</strong> {{ comment }}</p>
 	    {% endfor %}
-	    </div>
 	  {% endif %}
-    </div> <!-- panel -->
+	  <a href='#'>Comment</a>
+ 	  </div>
+   </div> <!-- panel -->
   {% empty %}
 	There are no entries for this topic yet.
   {% endfor %}
