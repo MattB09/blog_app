@@ -14,5 +14,8 @@ urlpatterns = [
 	path('edit_post/<post_id>', views.edit_post, name='edit_post'),
 	
 	# New comment
-	path('<post_id>/new_comment', views.new_comment, name='new_comment')
+	path('<post_id>/new_comment', views.new_comment, name='new_comment'),
+	
+	# Edit comment
+	path('edit_comment/<comment_id>', views.edit_comment, name='edit_comment'),
 ]

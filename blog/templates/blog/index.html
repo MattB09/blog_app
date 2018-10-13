@@ -37,7 +37,11 @@
 	  {% if post.comments.count > 0 %}
 		<h4>Comments</h4>
 	    {% for comment in post.comments.all %}
-			  <p><strong>{{ comment.author }}:</strong> {{ comment }}</p>
+		  <p>
+			<strong>{{ comment.author }}:</strong> {{ comment }}
+			<small><a href="{% url 'blog:edit_comment' comment.id %}">edit</a></small>
+		  </p>
+			  
 	    {% endfor %}
 	  {% endif %}
 	  <a href="{% url 'blog:new_comment' post.id %}">Comment</a>
