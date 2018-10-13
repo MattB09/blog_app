@@ -3,8 +3,8 @@ from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
-from .models import Post
-from .forms import PostForm
+from .models import Post, Comment
+from .forms import PostForm, CommentForm
 
 # Create your views here.
 def index(request):
@@ -58,3 +58,24 @@ def edit_post(request, post_id):
 	
 	context = {'post': post, 'form': form}
 	return render(request, 'blog/edit_post.html', context)
+
+@login_required
+def new_comment(request, post_id):
+	"""Write a new comment."""
+	post = Post.objects.get(id=post_id)
+	
+	if request.method != 'POST':
+		# No data submitted, load blank form
+		form = CommentForm()
+	else:
+		# data submitted, validate and save
+		form = CommentForm(data=request.POST)
+		if form.is_valid():
+			new_comment = form.save(commit=False)
+			new_comment.author = request.user
+			new_comment.post = post
+			new_comment.save()
+			return HttpResponseRedirect(reverse('blog:index'))
+			
+	context = {'post': post, 'form': form}
+	return render(request, 'blog/new_comment.html', context)

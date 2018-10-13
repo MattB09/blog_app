@@ -40,7 +40,7 @@
 			  <p><strong>{{ comment.author }}:</strong> {{ comment }}</p>
 	    {% endfor %}
 	  {% endif %}
-	  <a href='#'>Comment</a>
+	  <a href="{% url 'blog:new_comment' post.id %}">Comment</a>
  	  </div>
    </div> <!-- panel -->
   {% empty %}
