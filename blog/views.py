@@ -35,16 +35,16 @@ def new_post(request):
 	context = {'form': form}
 	return render(request, 'blog/new_post.html', context)
 	
-def check_post_owner(request, post):
+def check_owner(request, written_thing):
 	"""Check the post belongs to the current user."""
-	if post.author != request.user:
+	if written_thing.author != request.user:
 		raise Http404	
 
 @login_required
 def edit_post(request, post_id):
 	"""Edit an existing post."""
 	post = Post.objects.get(id=post_id)
-	check_post_owner(request, post)
+	check_owner(request, post)
 	
 	if request.method != 'POST':
 		# No data submitted; return prefilled form.
@@ -68,7 +68,7 @@ def new_comment(request, post_id):
 		# No data submitted, load blank form
 		form = CommentForm()
 	else:
-		# data submitted, validate and save
+		# Data submitted. validate and save
 		form = CommentForm(data=request.POST)
 		if form.is_valid():
 			new_comment = form.save(commit=False)
@@ -79,3 +79,23 @@ def new_comment(request, post_id):
 			
 	context = {'post': post, 'form': form}
 	return render(request, 'blog/new_comment.html', context)
+
+@login_required
+def edit_comment(request, comment_id):
+	"""Edit a comment."""
+	comment = Comment.objects.get(id=comment_id)
+	post = comment.post
+	check_owner(request, comment)
+	
+	if request.method != 'POST':
+		# load prefilled form
+		form = CommentForm(instance=comment)
+	else:
+		# data submitted, validate and save
+		form = CommentForm(instance=comment, data=request.POST)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect(reverse('blog:index'))
+			
+	context = {'comment': comment, 'post': post, 'form': form}
+	return render(request, 'blog/edit_comment.html', context)
