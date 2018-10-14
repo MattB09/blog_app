@@ -91,7 +91,7 @@ def edit_comment(request, comment_id):
 		form = CommentForm(instance=comment)
 	else:
 		# data submitted, validate and save
-		form = CommentForm(instance=comment, data=request.Post)
+		form = CommentForm(instance=comment, data=request.POST)
 		if form.is_valid():
 			form.save()
 			return HttpResponseRedirect(reverse('blog:index'))
