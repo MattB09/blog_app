@@ -5,4 +5,4 @@ django-bootstrap3==11.0.0
 gunicorn==19.9.0
 pytz==2018.5
 static3==0.7.0
-pyscopg2>=2.6.1
+psycopg2>=2.6.1
