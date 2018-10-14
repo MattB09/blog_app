@@ -32,7 +32,7 @@
 	  {% endif %}
 	  
       <!-- comment form -->
-      <form action="{% url 'blog:edit_comment' post.id comment.id %}" method='post' class="form">
+      <form action="{% url 'blog:edit_comment' comment.id %}" method='post' class="form">
 	    {% csrf_token %}
 	    {% bootstrap_form form %}
 	

@@ -84,6 +84,7 @@ def new_comment(request, post_id):
 def edit_comment(request, comment_id):
 	"""Edit a comment."""
 	comment = Comment.objects.get(id=comment_id)
+	post = comment.post
 	check_owner(request, comment)
 	
 	if request.method != 'POST':
@@ -96,5 +97,5 @@ def edit_comment(request, comment_id):
 			form.save()
 			return HttpResponseRedirect(reverse('blog:index'))
 			
-	context = {'comment': comment, 'form': form}
+	context = {'comment': comment, 'post': post, 'form': form}
 	return render(request, 'blog/edit_comment.html', context)
