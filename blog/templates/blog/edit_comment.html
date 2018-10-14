@@ -6,14 +6,41 @@
 {% endblock header %}
 
 {% block content %}
-  
-  <form action="{% url 'blog:edit_comment' comment.id %}" method='post' class="form">
-    {% csrf_token %}
-    {% bootstrap_form form %}
-    
-    {% buttons %}
-      <button name="submit" class="btn btn-primary">save</button>
-    {% endbuttons %}
-  </form>
+
+  <!-- Show the post and comments -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+	  <h3>
+		{{ post }} 
+		<small>
+		  Author: {{ post.author }} - Posted on: {{ post.posted_on|date:'M d, Y' }}
+		</small>
+	  </h3>
+	</div>
+	
+	<div class="panel-body">
+	  {{ post.content|linebreaks }}
+	</div>
+	
+	<!-- comments -->
+	<div class="panel-footer">
+	  {% if post.comments.count > 0 %}
+		<h4>Comments</h4>
+	    {% for comment in post.comments.all %}
+		  <p><strong>{{ comment.author }}:</strong> {{ comment }}</p>
+	    {% endfor %}
+	  {% endif %}
+	  
+      <!-- comment form -->
+      <form action="{% url 'blog:edit_comment' post.id comment.id %}" method='post' class="form">
+	    {% csrf_token %}
+	    {% bootstrap_form form %}
+	
+	    {% buttons %}
+	      <button name="submit" class="btn btn-primary">save</button>
+	    {% endbuttons %}
+      </form>	
+ 	</div> <!-- panel footer -->
+   </div> <!-- panel -->
 
 {% endblock content %}
