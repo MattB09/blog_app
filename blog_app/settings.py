@@ -54,6 +54,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+    # Simplified static file serving.
+    # https://warehouse.python.org/project/whitenoise/
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'blog_app.urls'
@@ -151,8 +155,17 @@ if cwd == '/app' or cwd[:4] == '/tmp':
 	DEBUG = False
 	
 	# Static asset configuration
-	BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 	STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-	
+	STATIC_TMP = os.path.join(BASE_DIR, 'static')
+	STATIC_URL = '/static/'
+
+	os.makedirs(STATIC_TMP, exist_ok=True)
+	os.makedirs(STATIC_ROOT, exist_ok=True)
+
 	# Extra places for collectstatic to find static files.
-	STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+	STATICFILES_DIRS = (
+		os.path.join(BASE_DIR, 'static'),
+	)
+
+	# Simplified static file serving.
+	STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
